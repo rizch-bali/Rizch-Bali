@@ -437,13 +437,22 @@
         console.log('Gagal load JSON, pakai fallback:', err);
         // Fallback: data inline kalau JSON gagal
         semuaArtikel = [
-          {"judul":"Syarat Perpanjang STNK di Bali","url":"/syarat-perpanjang-stnk-bali","gambar":"../syarat-perpanjang-stnk.webp","deskripsi":"Ketahui syarat-syarat perpanjang STNK di Bali agar proses lebih lancar dan tidak bolak-balik ke Samsat.","kategori":"Edukasi - Kendaraan","tanggal":"10 Mei 2026","keywords":"syarat perpanjang stnk bali stnk 5 tahunan pajak kendaraan"},
-          {"judul":"Jasa Pengurusan SIM di Bali","url":"/jasa-pengurusan-sim-bali","gambar":"../jasa-pengurusan-sim.webp","deskripsi":"Layanan pengurusan SIM A, C, D, hilang dan internasional di Bali cepat, aman, dan terpercaya.","kategori":"Layanan - SIM","tanggal":"25 Mei 2026","keywords":"jasa pengurusan sim bali sim a sim c sim d internasional"},
-          {"judul":"Syarat Mengurus SKCK di Bali","url":"/syarat-mengurus-skck-bali","gambar":"../syarat-mengurus-skck.webp","deskripsi":"Ketahui syarat dan prosedur terbaru untuk mengurus SKCK di Bali secara online maupun offline.","kategori":"Edukasi - SKCK","tanggal":"22 Mei 2026","keywords":"syarat mengurus skck bali catatan kepolisian online offline"},
-          {"judul":"Prosedur Balik Nama Kendaraan di Bali","url":"/prosedur-balik-nama-kendaraan-bali","gambar":"../prosedur-balik-nama-kendaraan.webp","deskripsi":"Langkah-langkah lengkap prosedur balik nama kendaraan bermotor di Bali dari awal sampai selesai.","kategori":"Edukasi - Kendaraan","tanggal":"20 Mei 2026","keywords":"prosedur balik nama kendaraan bali motor mobil bpkb stnk"},
-          {"judul":"Cara Mengurus STNK Hilang di Bali","url":"/cara-mengurus-stnk-hilang-bali","gambar":"../cara-mengurus-stnk-hilang.webp","deskripsi":"Panduan lengkap mengurus STNK hilang dengan syarat dan estimasi biaya terbaru di Bali.","kategori":"Edukasi - Kendaraan","tanggal":"15 Mei 2026","keywords":"cara mengurus stnk hilang bali duplikat samsat kehilangan"},
-          {"judul":"Mutasi Kendaraan di Bali","url":"/mutasi-kendaraan-bali","gambar":"../mutasi-kendaraan-keluar-masuk.webp","deskripsi":"Syarat dan prosedur mutasi kendaraan keluar masuk Bali terbaru lengkap dengan estimasi waktu.","kategori":"Edukasi - Kendaraan","tanggal":"18 Mei 2026","keywords":"mutasi kendaraan bali keluar masuk provinsi pindah alamat"},
-          {"judul":"Jasa Pengurusan SIM di Denpasar","url":"/layanan-sim/denpasar/","gambar":"../images/artikel/jasa-pengurusan-sim-denpasar.webp","deskripsi":"Layanan jasa pengurusan SIM di Denpasar. SIM keliling, perpanjang SIM, SIM baru. Proses cepat dan aman bersama Rizch Bali.","kategori":"Layanan - SIM","tanggal":"27 Juni 2026","keywords":"jasa pengurusan sim denpasar sim keliling perpanjang sim baru"}
+          {"judul":"Syarat Perpanjang STNK di Bali","url":"/syarat-perpanjang-stnk-bali","gambar":"/syarat-perpanjang-stnk.webp","deskripsi":"Ketahui syarat-syarat perpanjang STNK di Bali agar proses lebih lancar dan tidak bolak-balik ke Samsat.","kategori":"Edukasi - Kendaraan","tanggal":"10 Mei 2026","keywords":"syarat perpanjang stnk bali stnk 5 tahunan pajak kendaraan"},
+          {"judul":"Jasa Pengurusan SIM di Bali","url":"/jasa-pengurusan-sim-bali","gambar":"/jasa-pengurusan-sim.webp","deskripsi":"Layanan pengurusan SIM A, C, D, hilang dan internasional di Bali cepat, aman, dan terpercaya.","kategori":"Layanan - SIM","tanggal":"25 Mei 2026","keywords":"jasa pengurusan sim bali sim a sim c sim d internasional"},
+          {"judul":"Syarat Mengurus SKCK di Bali","url":"/syarat-mengurus-skck-bali","gambar":"/syarat-mengurus-skck.webp","deskripsi":"Ketahui syarat dan prosedur terbaru untuk mengurus SKCK di Bali secara online maupun offline.","kategori":"Edukasi - SKCK","tanggal":"22 Mei 2026","keywords":"syarat mengurus skck bali catatan kepolisian online offline"},
+          {"judul":"Prosedur Balik Nama Kendaraan di Bali","url":"/prosedur-balik-nama-kendaraan-bali","gambar":"/prosedur-balik-nama-kendaraan.webp","deskripsi":"Langkah-langkah lengkap prosedur balik nama kendaraan bermotor di Bali dari awal sampai selesai.","kategori":"Edukasi - Kendaraan","tanggal":"20 Mei 2026","keywords":"prosedur balik nama kendaraan bali motor mobil bpkb stnk"},
+          {"judul":"Cara Mengurus STNK Hilang di Bali","url":"/cara-mengurus-stnk-hilang-bali","gambar":"/cara-mengurus-stnk-hilang.webp","deskripsi":"Panduan lengkap mengurus STNK hilang dengan syarat dan estimasi biaya terbaru di Bali.","kategori":"Edukasi - Kendaraan","tanggal":"15 Mei 2026","keywords":"cara mengurus stnk hilang bali duplikat samsat kehilangan"},
+          {"judul":"Mutasi Kendaraan di Bali","url":"/mutasi-kendaraan-bali","gambar":"/mutasi-kendaraan-keluar-masuk.webp","deskripsi":"Syarat dan prosedur mutasi kendaraan keluar masuk Bali terbaru lengkap dengan estimasi waktu.","kategori":"Edukasi - Kendaraan","tanggal":"18 Mei 2026","keywords":"mutasi kendaraan bali keluar masuk provinsi pindah alamat"},
+          {"judul":"Jasa Pengurusan SIM di Denpasar","url":"/layanan-sim/denpasar/","gambar":"/images/artikel/jasa-pengurusan-sim-denpasar.webp","deskripsi":"Layanan jasa pengurusan SIM di Denpasar. SIM keliling, perpanjang SIM, SIM baru. Proses cepat dan aman bersama Rizch Bali.","kategori":"Layanan - SIM","tanggal":"27 Juni 2026","keywords":"jasa pengurusan sim denpasar sim keliling perpanjang sim baru"},
+{
+  "judul":"Cara Perpanjang SIM di Bali",
+  "url":"/artikel/edukasi/sim/cara-perpanjang-sim-di-bali/",
+  "gambar":"/images/artikel/cara-perpanjang-sim-bali.webp",
+  "deskripsi":"Panduan lengkap cara perpanjang SIM Bali secara online dan offline. Syarat, biaya, lokasi SATPAS, SIM Keliling, dan tips agar proses cepat dan lancar.",
+  "kategori":"Edukasi - SIM",
+  "tanggal":"1 Juli 2026",
+  "keywords":"cara perpanjang sim bali syarat biaya satpas sim keliling online 2026"
+}
         ];
         renderArtikel(semuaArtikel);
       });
