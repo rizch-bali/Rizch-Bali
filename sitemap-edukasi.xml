@@ -3,11 +3,20 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://rizchbali.com/artikel/edukasi/sim/cara-perpanjang-sim-di-bali/</loc>
-    <lastmod>2026-07-01T11:54:02+00:00</lastmod>
+    <lastmod>2026-10-19T21:50:06+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <image:image>
       <image:loc>https://rizchbali.com/images/artikel/cara-perpanjang-sim-bali.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rizchbali.com/artikel/konten/syarat-membuat-kitas-atau-kitap-di-jawa-timur</loc>
+    <lastmod>2026-10-19T05:54:16.526501+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://iqfpetbkpshntuffknza.supabase.co/storage/v1/object/public/rizch-content-images/1089870a-8ba2-4031-a539-f4c97139873a/24867582-4ab7-472a-b938-843593ad28c2.jpg</image:loc>
     </image:image>
   </url>
 </urlset>

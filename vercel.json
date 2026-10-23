@@ -95,6 +95,30 @@
     {
       "source": "/layanan-kendaraan/:kabupaten/:kelurahan",
       "destination": "/layanan-kendaraan/:kabupaten/:kelurahan/index.html"
+    },
+    {
+      "source": "/jual-beli/",
+      "destination": "/jual-beli/index.html"
+    },
+    {
+      "source": "/jual-beli/:slug/",
+      "destination": "/konten/detail.html?slug=:slug&type=jual_beli"
+    },
+    {
+      "source": "/jual-beli/:slug",
+      "destination": "/konten/detail.html?slug=:slug&type=jual_beli"
+    },
+    {
+      "source": "/halaman/:slug",
+      "destination": "/konten/detail.html?slug=:slug&type=root"
+    },
+    {
+      "source": "/layanan-konten/:slug",
+      "destination": "/konten/detail.html?slug=:slug&type=service"
+    },
+    {
+      "source": "/artikel/konten/:slug",
+      "destination": "/konten/detail.html?slug=:slug&type=article"
     }
   ]
 }

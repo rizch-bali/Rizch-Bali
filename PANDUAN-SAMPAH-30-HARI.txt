@@ -1,0 +1,26 @@
+PANDUAN FITUR SAMPAH 30 HARI — RIZCHBALI
+
+Tujuan
+- Konten yang dipindahkan ke Sampah bisa dipulihkan selama 30 hari.
+- Konten yang masih berada di Sampah setelah 30 hari akan dihapus permanen.
+- Proses otomatis berjalan setiap jam; konten dihapus pada kesempatan proses pertama setelah melewati 30 hari.
+- Gambar di Supabase Storage TIDAK dihapus oleh skrip ini untuk mencegah gambar yang masih dipakai konten lain ikut terhapus.
+
+PENTING
+1. Perubahan kode dan file SQL ini belum mengubah database Supabase dengan sendirinya.
+2. Sebelum mengaktifkan fitur, pastikan ada backup database yang memadai.
+3. Buka admin/upgrade-trash-retention-30-days.sql dan periksa isinya.
+4. Jalankan SQL tersebut satu kali di SQL Editor proyek Supabase yang benar-benar digunakan oleh RizchBali.
+5. Jika Supabase menolak ekstensi pg_cron atau menyatakan schema cron tidak ada, BERHENTI. Jangan mengubah SQL secara coba-coba; aktifkan/cek pg_cron dari Extensions di Supabase atau minta bantuan administrator proyek.
+6. Verifikasi job dengan query:
+   select jobname, schedule, active, command
+   from cron.job
+   where jobname = 'rizch-purge-expired-cms-trash';
+   Hasil yang diharapkan: satu job aktif dengan jadwal '0 * * * *'.
+
+Aturan
+- Masa simpan dihitung dari deleted_at (waktu konten dipindahkan ke Sampah).
+- Pemulihan sebelum proses penghapusan menghapus deleted_at dan konten tidak akan masuk kriteria penghapusan.
+- Setelah terhapus permanen, konten tidak bisa dipulihkan dari CMS.
+- Skrip hanya menghapus baris di public.cms_content yang berada di Sampah lebih dari 30 hari. Skrip tidak menghapus file dari Supabase Storage.
+- Jalankan uji di lingkungan yang aman terlebih dahulu. Jangan melakukan deployment publik hanya karena SQL sudah berhasil.

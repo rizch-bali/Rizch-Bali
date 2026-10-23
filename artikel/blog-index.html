@@ -163,6 +163,61 @@
     }
     .read-more:hover { gap: 10px; }
 
+    /* ====== KARTU KONTEN CMS TERBIT ====== */
+    .cms-published-section {
+      width: 100%; max-width: 1200px; margin: 28px auto 48px;
+      padding: 0 20px;
+    }
+    .cms-published-section > h2 {
+      color: var(--primary); margin: 0 0 18px; font-size: 1.45rem;
+    }
+    .cms-published-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px; align-items: stretch;
+    }
+    .cms-published-card {
+      min-width: 0; display: flex; flex-direction: column; padding: 14px;
+      background: #fff; border: 1px solid #e4e9f1; border-radius: 14px;
+      overflow: hidden; box-shadow: 0 4px 18px rgba(18,39,71,.05);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .cms-published-card:hover {
+      transform: translateY(-3px); box-shadow: 0 8px 22px rgba(18,39,71,.10);
+    }
+    .cms-published-card > img {
+      display: block; width: 100%; height: 145px; object-fit: cover;
+      border-radius: 8px; margin-bottom: 2px;
+    }
+    .cms-published-card .cms-card-meta {
+      display: block; color: #d47721; font-size: 12px; line-height: 1.45;
+      margin: 9px 0 6px;
+    }
+    .cms-published-card h3 {
+      color: var(--primary); font-size: 1rem; line-height: 1.4;
+      margin: 0 0 7px; overflow-wrap: anywhere;
+    }
+    .cms-published-card p {
+      color: #667387; font-size: .84rem; line-height: 1.55;
+      margin: 0 0 12px; overflow-wrap: anywhere;
+    }
+    .cms-published-card a {
+      display: inline-block; align-self: flex-start; margin-top: auto;
+      padding: 8px 11px; background: var(--primary); color: #fff;
+      text-decoration: none; border-radius: 7px; font-size: 12px;
+    }
+    .cms-published-card a:hover { background: var(--secondary); }
+    @media (max-width: 900px) {
+      .cms-published-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .cms-published-card > img { height: 140px; }
+    }
+    @media (max-width: 600px) {
+      .cms-published-section { margin: 22px auto 36px; padding: 0 16px; }
+      .cms-published-section > h2 { font-size: 1.25rem; }
+      .cms-published-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+      .cms-published-card { padding: 12px; }
+      .cms-published-card > img { height: 180px; }
+    }
+
     /* ====== FOOTER ====== */
     footer { background: var(--dark); color: white; padding: 60px 0 20px; }
     .footer-grid {
@@ -306,26 +361,35 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-container">
-      <a href="https://rizchbali.com" class="logo">
-        <img src="/images/logo/logo-rizch.png" alt="Rizch Service Bali">
-      </a>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="https://rizchbali.com">Beranda</a></li>
-        <li><a href="https://rizchbali.com#layanan">Layanan</a></li>
-        <li><a href="https://rizchbali.com#wilayah">Wilayah</a></li>
-        <li><a href="/artikel" class="active">Artikel</a></li>
-        <li><a href="https://rizchbali.com#faq">FAQ</a></li>
-        <li><a href="https://wa.me/62895429358977" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
-      </ul>
-      <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        <!-- GANTI JADI INI -->
+        <a href="/" class="logo" style="text-decoration: none;">
+            <img src="/images/logo/logo-rizch.png" alt="Rizch Bali" style="height: 50px; width: auto; object-fit: contain; display: block;">
+        </a>
+        
+        <ul class="nav-menu">
+            <li><a href="/#beranda">Beranda</a></li>
+            <li><a href="/#layanan">Layanan</a></li>
+            <li><a href="/jual-beli/">Jual Beli</a></li>
+            <li><a href="/artikel/">Artikel</a></li>
+            <li><a href="/#testimoni">Testimoni</a></li>
+            <li><a href="/#faq">FAQ</a></li>
+            <li><a href="/admin/" title="Masuk ke dashboard admin CMS">Admin</a></li>
+            <li><a href="https://wa.me/62895429358977" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
+        </ul>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-  </nav>
+</nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="container">
       <nav aria-label="breadcrumb">
-        <div class="breadcrumb"><a href="https://rizchbali.com">Beranda</a> <span>/</span> Artikel</div>
+        <div class="breadcrumb"><a href="/">Beranda</a> <span>/</span> Artikel</div>
       </nav>
       <h1>Artikel & Panduan Pengurusan Dokumen di Bali</h1>
       <p>Panduan lengkap pengurusan dokumen, tips, dan layanan terbaru dari Rizch Bali.</p>
@@ -359,155 +423,215 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img src="https://rizchbali.com/images/logo/logo-rizch.png" alt="Logo Rizch Service Bali" loading="lazy">
-          <p><strong>RizchBali</strong> adalah biro jasa Bali terpercaya sejak 2019 yang melayani pengurusan STNK, SIM, SKCK, paspor, dan berbagai dokumen resmi lainnya di seluruh Bali.</p>
-          <div class="social-links">
-            <a href="https://www.facebook.com/rizchpendampingandokumenpribadi" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/rizchservicebali" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@rizchservicebali" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://wa.me/62895429358977" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-          </div>
+        <div class="footer-grid">
+            
+            <!-- Brand -->
+            <div class="footer-brand">
+                <img src="/images/logo/logo-rizch.png" alt="Logo Rizch Bali" class="footer-logo" loading="lazy">
+                <p>
+                    <strong>RizchBali</strong> adalah biro jasa Bali terpercaya sejak 2019 yang melayani pengurusan STNK, SIM, SKCK, paspor, dan berbagai dokumen resmi lainnya di seluruh Bali.
+                </p>
+
+                <div class="social-links">
+                    <a href="https://www.facebook.com/rizchpendampingandokumenpribadi" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/rizchbali" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@rizchbali" target="_blank" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/62895429358977" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Layanan -->
+            <div class="footer-links">
+                <h4>Layanan Terkait</h4>
+                <ul>
+                    <li><a href="/syarat-perpanjang-stnk-bali"><i class="fas fa-chevron-right"></i> Syarat Perpanjang STNK Bali</a></li>
+                    <li><a href="/prosedur-balik-nama-kendaraan-bali"><i class="fas fa-chevron-right"></i> Prosedur Balik Nama Kendaraan Bali</a></li>
+                    <li><a href="/mutasi-kendaraan-bali"><i class="fas fa-chevron-right"></i> Mutasi Kendaraan Bali</a></li>
+                    <li><a href="/jasa-pengurusan-sim-bali"><i class="fas fa-chevron-right"></i> Jasa Pengurusan SIM Bali</a></li>
+                    <li><a href="/cara-mengurus-stnk-hilang-bali"><i class="fas fa-chevron-right"></i> Cara Mengurus STNK Hilang Bali</a></li>
+                    <li><a href="/syarat-mengurus-skck-bali"><i class="fas fa-chevron-right"></i> Syarat Mengurus SKCK Bali</a></li>
+                </ul>
+            </div>
+
+            <!-- Tautan Cepat -->
+            <div class="footer-links">
+                <h4>Tautan Cepat</h4>
+                <ul>
+                    <li>
+                        <a href="/#beranda">
+                            <i class="fas fa-chevron-right"></i> Beranda
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/#layanan">
+                            <i class="fas fa-chevron-right"></i> Layanan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/jual-beli/">
+                            <i class="fas fa-chevron-right"></i> Jual Beli
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/artikel">
+                            <i class="fas fa-chevron-right"></i> Artikel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/#faq">
+                            <i class="fas fa-chevron-right"></i> FAQ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Kontak -->
+            <div class="footer-contact">
+                <h4>Hubungi Kami</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Padangsambian, Denpasar, Bali</p>
+                <p><i class="fab fa-whatsapp"></i> +62 895-4293-58977</p>
+                <p><i class="fas fa-envelope"></i> rizch130299@gmail.com</p>
+                <p><i class="far fa-clock"></i> Senin - Sabtu: 08.00 - 17.00 WITA</p>
+            </div>
+
         </div>
-        <div class="footer-links">
-          <h4>Panduan Layanan</h4>
-          <ul>
-            <li><a href="/syarat-perpanjang-stnk-bali"><i class="fas fa-chevron-right"></i> Perpanjang STNK</a></li>
-            <li><a href="/jasa-pengurusan-sim-bali"><i class="fas fa-chevron-right"></i> Pengurusan SIM</a></li>
-            <li><a href="/syarat-mengurus-skck-bali"><i class="fas fa-chevron-right"></i> SKCK</a></li>
-            <li><a href="/prosedur-balik-nama-kendaraan-bali"><i class="fas fa-chevron-right"></i> Balik Nama</a></li>
-          </ul>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rizch Bali. All Rights Reserved. | Biro Jasa Dokumen Bali Terpercaya</p>
+            <p class="footer-disclaimer">
+                RizchBali membantu proses pengurusan dokumen secara profesional sesuai prosedur yang berlaku dan bukan merupakan bagian dari instansi pemerintah.
+            </p>
         </div>
-        <div class="footer-links">
-          <h4>Tautan Cepat</h4>
-          <ul>
-            <li><a href="https://rizchbali.com"><i class="fas fa-chevron-right"></i> Beranda</a></li>
-            <li><a href="https://rizchbali.com#layanan"><i class="fas fa-chevron-right"></i> Layanan</a></li>
-            <li><a href="https://rizchbali.com#wilayah"><i class="fas fa-chevron-right"></i> Wilayah</a></li>
-            <li><a href="/artikel"><i class="fas fa-chevron-right"></i> Artikel</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Hubungi Kami</h4>
-          <p><i class="fas fa-map-marker-alt"></i> Padangsambian, Denpasar, Bali</p>
-          <p><i class="fab fa-whatsapp"></i> +62 895-4293-58977</p>
-          <p><i class="fas fa-envelope"></i> rizch130299@gmail.com</p>
-          <p><i class="far fa-clock"></i> Senin - Sabtu: 08.00 - 17.00 WITA</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Rizch Bali. All Rights Reserved. | Biro Jasa Dokumen Bali Terpercaya</p>
-        <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.7;">RizchBali membantu proses pengurusan dokumen secara profesional sesuai prosedur yang berlaku dan bukan merupakan bagian dari instansi pemerintah.</p>
-      </div>
     </div>
-  </footer>
+</footer>
 
   <!-- FLOATING WA -->
   <a href="https://wa.me/62895429358977" class="floating-wa" target="_blank" aria-label="WhatsApp Rizch Bali">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </a>
 
+  <!-- Pustaka CMS dimuat sebelum skrip pencarian agar artikel CMS ikut dicari. -->
+  <script src="/admin/supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- JAVASCRIPT: Render artikel dari JSON + Search -->
+  <!-- JAVASCRIPT: Gabungkan artikel statis dan CMS dalam satu pencarian -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <script>
-    // ═══════════════════════════════════════════════════════════════
-    // [1] DATA ARTIKEL - Dibaca dari artikel-data.json
-    // ═══════════════════════════════════════════════════════════════
+    // Data artikel statis dan CMS digabung dalam satu daftar agar satu pencarian
+    // dapat menemukan seluruh artikel yang relevan.
     let semuaArtikel = [];
-
-    // ═══════════════════════════════════════════════════════════════
-    // [2] FETCH JSON - Ambil data artikel dari file JSON
-    // ═══════════════════════════════════════════════════════════════
-    fetch('artikel-data.json')
-      .then(res => {
-        if (!res.ok) throw new Error('Gagal load JSON');
-        return res.json();
-      })
-      .then(data => {
-        semuaArtikel = data.artikel;
-        renderArtikel(semuaArtikel);
-      })
-      .catch(err => {
-        console.log('Gagal load JSON, pakai fallback:', err);
-        // Fallback: data inline kalau JSON gagal
-        semuaArtikel = [
-          {"judul":"Syarat Perpanjang STNK di Bali","url":"/syarat-perpanjang-stnk-bali","gambar":"/syarat-perpanjang-stnk.webp","deskripsi":"Ketahui syarat-syarat perpanjang STNK di Bali agar proses lebih lancar dan tidak bolak-balik ke Samsat.","kategori":"Edukasi - Kendaraan","tanggal":"10 Mei 2026","keywords":"syarat perpanjang stnk bali stnk 5 tahunan pajak kendaraan"},
-          {"judul":"Jasa Pengurusan SIM di Bali","url":"/jasa-pengurusan-sim-bali","gambar":"/jasa-pengurusan-sim.webp","deskripsi":"Layanan pengurusan SIM A, C, D, hilang dan internasional di Bali cepat, aman, dan terpercaya.","kategori":"Layanan - SIM","tanggal":"25 Mei 2026","keywords":"jasa pengurusan sim bali sim a sim c sim d internasional"},
-          {"judul":"Syarat Mengurus SKCK di Bali","url":"/syarat-mengurus-skck-bali","gambar":"/syarat-mengurus-skck.webp","deskripsi":"Ketahui syarat dan prosedur terbaru untuk mengurus SKCK di Bali secara online maupun offline.","kategori":"Edukasi - SKCK","tanggal":"22 Mei 2026","keywords":"syarat mengurus skck bali catatan kepolisian online offline"},
-          {"judul":"Prosedur Balik Nama Kendaraan di Bali","url":"/prosedur-balik-nama-kendaraan-bali","gambar":"/prosedur-balik-nama-kendaraan.webp","deskripsi":"Langkah-langkah lengkap prosedur balik nama kendaraan bermotor di Bali dari awal sampai selesai.","kategori":"Edukasi - Kendaraan","tanggal":"20 Mei 2026","keywords":"prosedur balik nama kendaraan bali motor mobil bpkb stnk"},
-          {"judul":"Cara Mengurus STNK Hilang di Bali","url":"/cara-mengurus-stnk-hilang-bali","gambar":"/cara-mengurus-stnk-hilang.webp","deskripsi":"Panduan lengkap mengurus STNK hilang dengan syarat dan estimasi biaya terbaru di Bali.","kategori":"Edukasi - Kendaraan","tanggal":"15 Mei 2026","keywords":"cara mengurus stnk hilang bali duplikat samsat kehilangan"},
-          {"judul":"Mutasi Kendaraan di Bali","url":"/mutasi-kendaraan-bali","gambar":"/mutasi-kendaraan-keluar-masuk.webp","deskripsi":"Syarat dan prosedur mutasi kendaraan keluar masuk Bali terbaru lengkap dengan estimasi waktu.","kategori":"Edukasi - Kendaraan","tanggal":"18 Mei 2026","keywords":"mutasi kendaraan bali keluar masuk provinsi pindah alamat"},
-          {"judul":"Jasa Pengurusan SIM di Denpasar","url":"/layanan-sim/denpasar/","gambar":"/images/artikel/jasa-pengurusan-sim-denpasar.webp","deskripsi":"Layanan jasa pengurusan SIM di Denpasar. SIM keliling, perpanjang SIM, SIM baru. Proses cepat dan aman bersama Rizch Bali.","kategori":"Layanan - SIM","tanggal":"27 Juni 2026","keywords":"jasa pengurusan sim denpasar sim keliling perpanjang sim baru"},
-{
-  "judul":"Cara Perpanjang SIM di Bali",
-  "url":"/artikel/edukasi/sim/cara-perpanjang-sim-di-bali/",
-  "gambar":"/images/artikel/cara-perpanjang-sim-bali.webp",
-  "deskripsi":"Panduan lengkap cara perpanjang SIM Bali secara online dan offline. Syarat, biaya, lokasi SATPAS, SIM Keliling, dan tips agar proses cepat dan lancar.",
-  "kategori":"Edukasi - SIM",
-  "tanggal":"1 Juli 2026",
-  "keywords":"cara perpanjang sim bali syarat biaya satpas sim keliling online 2026"
-}
-        ];
-        renderArtikel(semuaArtikel);
+    const escArticle = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const normalizeArticle = item => ({
+      judul: String(item.judul || item.title || '').trim(),
+      url: String(item.url || item.public_url || (item.slug ? `/artikel/konten/${item.slug}` : '/artikel/')).trim(),
+      gambar: String(item.gambar || item.image_url || '').trim(),
+      deskripsi: String(item.deskripsi || item.excerpt || '').trim(),
+      kategori: String(item.kategori || item.category || (item.content_type === 'service' ? 'Layanan' : 'Artikel')).trim(),
+      tanggal: String(item.tanggal || item.published_at || '').trim(),
+      keywords: String(item.keywords || '').trim(),
+      isi: String(item.body_html || item.body || '').replace(/<[^>]*>/g, ' ').trim()
+    });
+    function mergeArticles(list) {
+      const seen = new Set();
+      return list.map(normalizeArticle).filter(item => {
+        if (!item.judul || !item.url) return false;
+        const key = item.url.replace(/\/$/, '').toLowerCase() || item.judul.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key); return true;
       });
-
-    // ═══════════════════════════════════════════════════════════════
-    // [3] RENDER ARTIKEL - Buat card HTML dari data JSON
-    // ═══════════════════════════════════════════════════════════════
+    }
     function renderArtikel(list) {
       const grid = document.getElementById('articlesGrid');
       const noResults = document.getElementById('noResults');
-
-      if (list.length === 0) {
+      if (!grid || !noResults) return;
+      if (!list.length) {
         grid.innerHTML = '';
         noResults.classList.add('show');
         return;
       }
-
       noResults.classList.remove('show');
-
-      grid.innerHTML = list.map(item => `
-        <article class="article-card" data-keywords="${item.keywords}">
-          <div style="position:relative;">
-            <img src="${item.gambar}" alt="${item.judul}" class="article-img" loading="lazy"
-              onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'article-img-placeholder\'><i class=\'fas fa-image\'></i></div>'">
-          </div>
+      grid.innerHTML = list.map(item => {
+        const title = escArticle(item.judul);
+        const url = escArticle(item.url);
+        const image = item.gambar
+          ? `<img src="${escArticle(item.gambar)}" alt="${title}" class="article-img" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'article-img-placeholder\'><i class=\'fas fa-image\'></i></div>'">`
+          : `<div class="article-img-placeholder"><i class="fas fa-image"></i></div>`;
+        return `<article class="article-card" data-keywords="${escArticle(`${item.judul} ${item.deskripsi} ${item.kategori} ${item.keywords} ${item.isi}`.toLocaleLowerCase('id'))}">
+          <div style="position:relative;">${image}</div>
           <div class="article-content">
-            <span class="article-label">${item.kategori}</span>
-            <h2><a href="${item.url}" style="text-decoration:none;color:inherit;">${item.judul}</a></h2>
-            <p>${item.deskripsi}</p>
-            <a href="${item.url}" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+            <span class="article-label">${escArticle(item.kategori)}</span>
+            <h2><a href="${url}" style="text-decoration:none;color:inherit;">${title}</a></h2>
+            <p>${escArticle(item.deskripsi)}</p>
+            <a href="${url}" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
           </div>
-        </article>
-      `).join('');
+        </article>`;
+      }).join('');
     }
-
-    // ═══════════════════════════════════════════════════════════════
-    // [4] SEARCH - Cari artikel berdasarkan keyword
-    // ═══════════════════════════════════════════════════════════════
     function searchArticles() {
-      const input = document.getElementById('searchInput');
-      const filter = input.value.toLowerCase().trim();
-
-      if (!filter) {
-        renderArtikel(semuaArtikel);
-        return;
-      }
-
+      const filter = document.getElementById('searchInput').value.toLocaleLowerCase('id').trim();
+      if (!filter) { renderArtikel(semuaArtikel); return; }
+      const terms = filter.split(/\s+/).filter(Boolean);
       const filtered = semuaArtikel.filter(item => {
-        return item.judul.toLowerCase().includes(filter) ||
-               item.deskripsi.toLowerCase().includes(filter) ||
-               item.kategori.toLowerCase().includes(filter) ||
-               item.keywords.toLowerCase().includes(filter);
+        const searchable = `${item.judul} ${item.deskripsi} ${item.kategori} ${item.keywords} ${item.isi}`.toLocaleLowerCase('id');
+        return terms.every(term => searchable.includes(term));
       });
-
       renderArtikel(filtered);
     }
+    async function loadAllArticles() {
+      let staticArticles = [];
+      try {
+        const response = await fetch('/artikel/artikel-data.json');
+        if (!response.ok) throw new Error('Gagal memuat artikel-data.json');
+        const json = await response.json();
+        staticArticles = Array.isArray(json.artikel) ? json.artikel : [];
+      } catch (error) {
+        console.warn('Artikel statis gagal dimuat:', error);
+      }
+      // Render artikel statis lebih dulu agar halaman tetap cepat tampil.
+      semuaArtikel = mergeArticles(staticArticles);
+      searchArticles();
+
+      try {
+        const cfg = window.RIZCH_SUPABASE_CONFIG || {};
+        if (window.supabase && cfg.url && cfg.anonKey && !cfg.url.includes('PROJECT-ID') && !cfg.anonKey.includes('ISI_DENGAN')) {
+          const client = window.supabase.createClient(cfg.url, cfg.anonKey);
+          const { data, error } = await client.from('cms_content')
+            .select('title,slug,content_type,category,region,excerpt,body_html,image_url,public_url,published_at,seo_keywords')
+            .in('content_type', ['article','service'])
+            .eq('status','published')
+            .is('deleted_at', null)
+            .order('published_at', { ascending: false, nullsFirst: false });
+          if (error) throw error;
+          const cmsArticles = (data || []).map(item => ({
+            title: item.title,
+            url: item.public_url || (item.content_type === 'service' ? `/layanan-konten/${item.slug}` : `/artikel/konten/${item.slug}`),
+            image_url: item.image_url,
+            excerpt: item.excerpt,
+            category: [item.content_type === 'service' ? 'Layanan' : 'Artikel', item.category, item.region].filter(Boolean).join(' · '),
+            keywords: item.seo_keywords || '',
+            body_html: item.body_html || '',
+            published_at: item.published_at
+          }));
+          // CMS diprioritaskan bila URL sama; sisanya digabung ke daftar yang sama.
+          semuaArtikel = mergeArticles([...cmsArticles, ...staticArticles]);
+          searchArticles();
+        }
+      } catch (error) {
+        console.warn('Artikel CMS tidak dapat dimuat; artikel statis tetap ditampilkan:', error);
+      }
+    }
+    loadAllArticles();
 
     // ═══════════════════════════════════════════════════════════════
     // [5] MOBILE MENU - Toggle hamburger menu
@@ -525,6 +649,11 @@
       }
     });
   </script>
+
+
+  <script src="/admin/supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/global-settings.js"></script>
 
 </body>
 </html>

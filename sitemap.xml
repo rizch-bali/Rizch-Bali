@@ -2,14 +2,18 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>https://rizchbali.com/sitemap-edukasi.xml</loc>
-    <lastmod>2026-07-02T03:57:12+00:00</lastmod>
+    <lastmod>2026-10-21T04:11:28+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://rizchbali.com/sitemap-jual-beli.xml</loc>
+    <lastmod>2026-10-21T04:11:28+00:00</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://rizchbali.com/sitemap-layanan-sim.xml</loc>
-    <lastmod>2026-07-02T03:57:12+00:00</lastmod>
+    <lastmod>2026-10-21T04:11:28+00:00</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://rizchbali.com/sitemap-root.xml</loc>
-    <lastmod>2026-07-02T03:57:12+00:00</lastmod>
+    <lastmod>2026-10-21T04:11:28+00:00</lastmod>
   </sitemap>
 </sitemapindex>

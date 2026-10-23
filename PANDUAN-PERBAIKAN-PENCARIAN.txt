@@ -1,0 +1,14 @@
+PERBAIKAN PENCARIAN — RIZCHBALI
+
+Perubahan kode dalam ZIP ini:
+1. Pencarian artikel menggabungkan artikel statis dari artikel-data.json dan konten article/service terbit dari CMS ke satu daftar yang dapat dicari.
+2. Pencarian artikel mencari semua kata kunci pada judul, ringkasan, kategori, keyword SEO, dan teks isi yang tersedia.
+3. Pencarian jual-beli mendukung kata kunci dan filter Semua status / Tersedia / Terjual. Kategori diambil dari kolom category CMS, sehingga dapat mencakup mobil, motor, rumah, tanah, dan kategori mendatang.
+4. Formulir admin menambahkan Status iklan (Tersedia/Terjual), terpisah dari status publikasi Draft/Terbit.
+5. artikel/index.html disamakan dengan artikel/blog-index.html agar kedua file tidak memiliki perilaku pencarian berbeda.
+
+PENTING SEBELUM UJI LOKAL:
+- Jalankan isi file admin/upgrade-jual-beli-status.sql di Supabase SQL Editor pada project yang dipakai CMS. Ini menambah kolom listing_status secara aditif, default Tersedia untuk data lama, dan tidak menghapus data.
+- Setelah SQL berhasil, salin isi folder project hasil ZIP ini ke folder kerja lokal yang benar (setelah membuat backup folder kerja).
+- Uji lokal dulu. Jangan deploy sebelum checklist #1–#5 selesai sesuai rencana.
+- Status Tersedia/Terjual pada iklan lama akan default menjadi Tersedia; admin dapat mengubahnya di Edit Konten > Informasi Jual Beli.

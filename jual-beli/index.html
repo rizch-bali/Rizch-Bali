@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jual Beli Properti & Kendaraan Bali | Rizch Bali</title>
+    <meta name="description" content="Jual beli properti, rumah, tanah, dan kendaraan di Bali. Listing terpercaya dari Rizch Bali." />
+    <meta name="keywords" content="jual beli properti Bali, jual rumah Bali, jual tanah Bali, jual kendaraan Bali, Rizch Bali" />
+    <meta name="author" content="Rizch Bali" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://rizchbali.com/jual-beli/" />
+    
+    <meta property="og:title" content="Jual Beli Properti & Kendaraan Bali | Rizch Bali" />
+    <meta property="og:description" content="Jual beli properti, rumah, tanah, dan kendaraan di Bali. Listing terpercaya dari Rizch Bali." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rizchbali.com/jual-beli/" />
+    <meta property="og:image" content="https://rizchbali.com/rizch-service-bali.jpg" />
+    <meta property="og:site_name" content="RizchBali" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jual Beli Properti & Kendaraan Bali | Rizch Bali" />
+    <meta name="twitter:description" content="Jual beli properti, rumah, tanah, dan kendaraan di Bali." />
+    <meta name="twitter:image" content="https://rizchbali.com/rizch-service-bali.jpg" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #e67e22;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --gray: #6c757d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6; color: #333; background: var(--light);
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* NAVBAR */
+        .navbar {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1); z-index: 1000;
+        }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px; max-width: 1200px; margin: 0 auto;
+        }
+        .logo img { height: 50px; width: auto; display: block; object-fit: contain; }
+        .nav-menu { display: flex; list-style: none; gap: 35px; align-items: center; }
+        .nav-menu a {
+            text-decoration: none; color: var(--dark); font-weight: 500;
+            transition: color 0.3s ease; position: relative;
+        }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--secondary); }
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e); color: white;
+            padding: 10px 22px; border-radius: 50px; text-decoration: none;
+            font-weight: 600; font-size: 0.9rem; display: flex;
+            align-items: center; gap: 8px; transition: all 0.3s ease;
+        }
+        .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--primary); border-radius: 3px; transition: all 0.3s ease; }
+        
+        /* HERO */
+        .hero {
+            margin-top: 75px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 60px 0; text-align: center; color: white;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .breadcrumb { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 15px; }
+        .breadcrumb a { color: rgba(255,255,255,0.9); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .search-box { margin-top: 20px; display: flex; justify-content: center; gap: 0; }
+        .search-box input {
+            padding: 12px 20px; border: none; border-radius: 50px 0 0 50px;
+            width: 300px; font-size: 0.95rem; outline: none;
+        }
+        .search-box button {
+            padding: 12px 20px; background: var(--accent); color: white;
+            border: none; border-radius: 0 50px 50px 0; cursor: pointer; transition: background 0.3s ease;
+        }
+        .search-box button:hover { background: #d35400; }
+        .listing-filters { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:10px; margin:14px auto 0; }
+        .listing-filters label { font-weight:600; }
+        .listing-filters select, .clear-filters { min-height:42px; border:1px solid #d7dce5; border-radius:8px; padding:8px 12px; font:inherit; background:#fff; color:#222; }
+        .clear-filters { cursor:pointer; }
+        .listing-status { display:inline-flex; align-items:center; width:max-content; padding:4px 9px; border-radius:999px; font-size:.8rem; font-weight:700; margin-bottom:8px; }
+        .listing-status.available { color:#146c43; background:#d8f3e4; }
+        .listing-status.sold { color:#842029; background:#f8d7da; }
+        @media (max-width:600px) { .listing-filters { align-items:stretch; } .listing-filters select { min-width:140px; } }
+        
+        /* SECTION */
+        .section-heading {
+            text-align: center; margin-bottom: 10px; color: var(--primary);
+            font-size: 1.8rem; display: flex; align-items: center; justify-content: center; gap: 12px;
+        }
+        .section-heading i { color: var(--accent); }
+        .section-subheading { text-align: center; color: var(--gray); margin-bottom: 35px; font-size: 1rem; }
+        
+        /* LISTINGS */
+        .listings-section { padding: 50px 0 60px; }
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: stretch;
+            gap: 24px;
+        }
+        .listing-card {
+            min-width: 0;
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07); transition: box-shadow 0.2s ease, transform 0.2s ease;
+            display: flex; flex-direction: column; text-decoration: none; color: inherit;
+        }
+        .listing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+        .listing-img {
+            width: 100%; height: 155px; object-fit: cover; display: block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .listing-img-placeholder {
+            width: 100%; height: 155px; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 2.4rem;
+        }
+        .listing-content { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+        .listing-label {
+            display: inline-block; background: #eef2ff; color: var(--primary);
+            font-size: 0.7rem; padding: 5px 10px; border-radius: 30px;
+            margin-bottom: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.35px; align-self: flex-start;
+        }
+        .listing-price {
+            color: var(--accent); font-size: 1.15rem; font-weight: 700; margin-bottom: 6px;
+        }
+        .listing-content h2 { font-size: 1.08rem; color: var(--dark); margin-bottom: 8px; line-height: 1.4; }
+        .listing-content p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 14px; flex: 1; }
+        .listing-meta {
+            display: flex; flex-wrap: wrap; gap: 8px 12px; color: var(--gray); font-size: 0.82rem; margin-bottom: 12px;
+        }
+        .listing-meta span { display: flex; align-items: center; gap: 5px; }
+        .btn-read-more {
+            display: block; margin: 0 0 10px; padding: 10px 14px;
+            border: 1px solid var(--primary); border-radius: 50px;
+            color: var(--primary); background: #fff; text-align: center;
+            text-decoration: none; font-weight: 700; font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        .btn-read-more:hover { background: #eef2ff; transform: translateY(-1px); }
+        .btn-contact {
+            display: block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 10px 14px; border-radius: 50px; text-align: center;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s ease;
+        }
+        .btn-contact:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3); }
+        /* Responsif: 2 kolom tablet, 1 kolom ponsel. */
+        @media (max-width: 900px) {
+            .listings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+            .listing-image-link { height: 150px; }
+        }
+        @media (max-width: 600px) {
+            .listings-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+            .listing-image-link { height: 190px; }
+            .listing-content { padding: 16px; }
+        }
+        
+        /* NO RESULTS */
+        .no-results { text-align: center; padding: 40px; color: var(--gray); display: none; }
+        .no-results.show { display: block; }
+        
+        /* FOOTER */
+        footer { background: var(--dark); color: white; padding: 60px 0 20px; }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px; margin-bottom: 40px;
+        }
+        .footer-brand img { height: 50px; margin-bottom: 15px; display: block; }
+        .footer-brand p { color: rgba(255,255,255,0.7); line-height: 1.8; font-size: 0.95rem; margin-bottom: 20px; }
+        .social-links { display: flex; gap: 12px; }
+        .social-links a {
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; transition: all 0.3s ease;
+        }
+        .social-links a:hover { background: var(--secondary); transform: translateY(-3px); }
+        .footer-links h4 { color: white; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 8px; font-size: 0.95rem;
+        }
+        .footer-links ul li a:hover { color: white; padding-left: 5px; }
+        .footer-contact h4 { color: white; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-contact p { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: rgba(255,255,255,0.7); font-size: 0.95rem; }
+        .footer-contact i { color: var(--accent); width: 20px; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;
+            text-align: center; color: rgba(255,255,255,0.5); font-size: 0.9rem;
+        }
+        .footer-disclaimer { margin-top: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        
+        /* FLOATING WA */
+        .floating-wa {
+            position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
+            background: #25d366; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 9999;
+            transition: all 0.3s ease; animation: pulse 2s infinite; text-decoration: none;
+        }
+        .floating-wa:hover { transform: scale(1.1); }
+        .floating-wa i { color: white; font-size: 28px; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        /* MOBILE */
+        @media (max-width: 968px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed; left: -100%; top: 75px; flex-direction: column;
+                background: white; width: 100%; text-align: center;
+                transition: 0.3s; padding: 20px 0; gap: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-menu.active { left: 0; }
+            .nav-menu li { padding: 15px 0; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: 1.8rem; }
+            .search-box input { width: 200px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .section-heading { font-size: 1.4rem; }
+        }
+        .listing-image-link { display:block; width:100%; height:155px; overflow:hidden; background:#eef2f7; flex-shrink:0; }
+        .listing-image { display:block; width:100%; height:100%; object-fit:cover; }
+        .listing-image-link:has(.listing-img-placeholder) { height:155px; }
+        .listing-card h2 a:hover { color:var(--secondary)!important; }
+        @media (max-width: 900px) { .listing-image-link, .listing-image-link:has(.listing-img-placeholder) { height:150px; } }
+        @media (max-width: 600px) { .listing-image-link, .listing-image-link:has(.listing-img-placeholder) { height:180px; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+    <div class="nav-container">
+        <!-- GANTI JADI INI -->
+        <a href="/" class="logo" style="text-decoration: none;">
+            <img src="/images/logo/logo-rizch.png" alt="Rizch Bali" style="height: 50px; width: auto; object-fit: contain; display: block;">
+        </a>
+        
+        <ul class="nav-menu">
+            <li><a href="/#beranda">Beranda</a></li>
+            <li><a href="/#layanan">Layanan</a></li>
+            <li><a href="/jual-beli/">Jual Beli</a></li>
+            <li><a href="/artikel/">Artikel</a></li>
+            <li><a href="/#testimoni">Testimoni</a></li>
+            <li><a href="/#faq">FAQ</a></li>
+            <li><a href="/admin/" title="Masuk ke dashboard admin CMS">Admin</a></li>
+            <li><a href="https://wa.me/62895429358977" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
+        </ul>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/">Beranda</a> / <span>Jual Beli</span>
+            </div>
+            <h1><i class="fas fa-home"></i> Jual Beli Properti & Kendaraan</h1>
+            <p>Temukan listing properti, rumah, tanah, dan kendaraan terbaik di Bali. Terpercaya dan ter-update.</p>
+            <div class="search-box" role="search" aria-label="Cari listing jual beli">
+                <input type="search" id="searchInput" placeholder="Cari motor, mobil, rumah, tanah..." aria-label="Kata kunci jual beli" autocomplete="off">
+                <button id="searchButton" type="button" aria-label="Cari listing"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="listing-filters" aria-label="Filter status listing">
+                <label for="listingStatusFilter">Status</label>
+                <select id="listingStatusFilter">
+                    <option value="all">Semua status</option>
+                    <option value="tersedia">Tersedia</option>
+                    <option value="terjual">Terjual</option>
+                </select>
+                <button type="button" id="clearListingFilters" class="clear-filters">Hapus filter</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTINGS -->
+    <section class="listings-section">
+        <div class="container">
+            <h2 class="section-heading"><i class="fas fa-fire"></i> Listing Terbaru</h2>
+            <p class="section-subheading">Pilihan terbaik yang sedang tersedia saat ini</p>
+            
+            <div class="listings-grid" id="listingsGrid" aria-live="polite">
+                <!-- Kartu listing diterbitkan dimuat dari Supabase oleh jual-beli.js -->
+            </div>
+
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 15px; color: var(--gray);"></i>
+                <h3>Listing tidak ditemukan</h3>
+                <p>Coba kata kunci lain.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+    <div class="container">
+        <div class="footer-grid">
+            
+            <!-- Brand -->
+            <div class="footer-brand">
+                <img src="/images/logo/logo-rizch.png" alt="Logo Rizch Bali" class="footer-logo" loading="lazy">
+                <p>
+                    <strong>RizchBali</strong> adalah biro jasa Bali terpercaya sejak 2019 yang melayani pengurusan STNK, SIM, SKCK, paspor, dan berbagai dokumen resmi lainnya di seluruh Bali.
+                </p>
+
+                <div class="social-links">
+                    <a href="https://www.facebook.com/rizchpendampingandokumenpribadi" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/rizchbali" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@rizchbali" target="_blank" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/62895429358977" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Layanan -->
+            <div class="footer-links">
+                <h4>Layanan Terkait</h4>
+                <ul>
+                    <li><a href="/syarat-perpanjang-stnk-bali"><i class="fas fa-chevron-right"></i> Syarat Perpanjang STNK Bali</a></li>
+                    <li><a href="/prosedur-balik-nama-kendaraan-bali"><i class="fas fa-chevron-right"></i> Prosedur Balik Nama Kendaraan Bali</a></li>
+                    <li><a href="/mutasi-kendaraan-bali"><i class="fas fa-chevron-right"></i> Mutasi Kendaraan Bali</a></li>
+                    <li><a href="/jasa-pengurusan-sim-bali"><i class="fas fa-chevron-right"></i> Jasa Pengurusan SIM Bali</a></li>
+                    <li><a href="/cara-mengurus-stnk-hilang-bali"><i class="fas fa-chevron-right"></i> Cara Mengurus STNK Hilang Bali</a></li>
+                    <li><a href="/syarat-mengurus-skck-bali"><i class="fas fa-chevron-right"></i> Syarat Mengurus SKCK Bali</a></li>
+                </ul>
+            </div>
+
+            <!-- Tautan Cepat -->
+            <div class="footer-links">
+                <h4>Tautan Cepat</h4>
+                <ul>
+                    <li>
+                        <a href="/#beranda">
+                            <i class="fas fa-chevron-right"></i> Beranda
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/#layanan">
+                            <i class="fas fa-chevron-right"></i> Layanan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/jual-beli/">
+                            <i class="fas fa-chevron-right"></i> Jual Beli
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/artikel">
+                            <i class="fas fa-chevron-right"></i> Artikel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/#faq">
+                            <i class="fas fa-chevron-right"></i> FAQ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Kontak -->
+            <div class="footer-contact">
+                <h4>Hubungi Kami</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Padangsambian, Denpasar, Bali</p>
+                <p><i class="fab fa-whatsapp"></i> +62 895-4293-58977</p>
+                <p><i class="fas fa-envelope"></i> rizch130299@gmail.com</p>
+                <p><i class="far fa-clock"></i> Senin - Sabtu: 08.00 - 17.00 WITA</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rizch Bali. All Rights Reserved. | Biro Jasa Dokumen Bali Terpercaya</p>
+            <p class="footer-disclaimer">
+                RizchBali membantu proses pengurusan dokumen secara profesional sesuai prosedur yang berlaku dan bukan merupakan bagian dari instansi pemerintah.
+            </p>
+        </div>
+    </div>
+</footer>
+
+    <!-- FLOATING WA -->
+    <a href="https://wa.me/62895429358977" class="floating-wa" target="_blank" title="Chat WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/admin/supabase-config.js"></script>
+    <script src="/jual-beli/jual-beli.js" defer></script>
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

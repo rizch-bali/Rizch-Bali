@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-RIZCH Sitemap Generator Pro v2.1
+RIZCH Sitemap Generator Pro v2.3
 ================================
 Fitur:
 - Auto-detect SEMUA folder + vercel.json
@@ -27,8 +27,8 @@ Changelog v2.1:
 
 Cara penggunaan:
 1. Simpan di root project (sejajar index.html & vercel.json)
-2. Jalankan: python generate-sitemap-pro.py
-3. Upload semua *.xml ke GitHub
+2. Jalankan: python generate-sitemap-pro-v2.py
+3. Upload hanya file sitemap yang dilaporkan sebagai generated (jangan upload sitemap lama/kosong yang tidak terdaftar)
 4. Submit https://rizchbali.com/sitemap.xml ke GSC
 """
 
@@ -37,6 +37,9 @@ import sys
 import json
 import re
 import hashlib
+import urllib.parse
+import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 from collections import defaultdict
@@ -50,7 +53,7 @@ VERCEL_JSON = "vercel.json"
 
 # Folder yang diabaikan
 IGNORE_FOLDERS = {
-    ".git", "images", "node_modules", "template",
+    ".git", "images", "node_modules", "template", "admin",
     "__pycache__", ".vercel", ".github", "wati"
 }
 
@@ -380,8 +383,10 @@ def scan_folders():
         if should_ignore_folder(rel_root):
             continue
 
-        # Hanya proses file .html
+        # Hanya proses file HTML publik. Template detail CMS bukan URL konten tersendiri.
         html_files = [f for f in files if f.endswith('.html')]
+        if rel_root.replace(chr(92), '/').strip('./') == 'konten':
+            html_files = [f for f in html_files if f != 'detail.html']
 
         if not html_files:
             continue
@@ -455,6 +460,13 @@ def scan_folders():
                 main_image = html_data['og_image'] or html_data['first_image']
 
             images = [main_image] if main_image else []
+
+            # Halaman kategori Jual Beli memakai og:image generik yang sama
+            # dengan halaman utama. Jangan masukkan gambar generik itu ke
+            # image sitemap kategori; item detail CMS tetap memakai image_url
+            # masing-masing dari Supabase Storage, seperti artikel di sitemap-edukasi.
+            if html_file == 'index.html' and parts == ['jual-beli']:
+                images = []
 
             sitemap_data[sitemap_name].append({
                 'url': url,
@@ -626,15 +638,145 @@ def run_audit(all_urls):
 
     print("\n" + "="*60)
 
+
+# ============================================================
+# CMS SUPABASE (konten publik yang diterbitkan)
+# ============================================================
+
+def read_supabase_public_config():
+    """Baca URL dan publishable/anon key dari admin/supabase-config.js."""
+    config_path = Path("admin/supabase-config.js")
+    if not config_path.exists():
+        raise RuntimeError("admin/supabase-config.js tidak ditemukan; sitemap CMS tidak dapat diaudit.")
+    content = config_path.read_text(encoding="utf-8")
+    url_match = re.search(r'\burl\s*:\s*["\']([^"\']+)["\']', content)
+    key_match = re.search(r'\banonKey\s*:\s*["\']([^"\']+)["\']', content)
+    if not url_match or not key_match:
+        raise RuntimeError("URL atau publishable/anon key Supabase tidak ditemukan dalam konfigurasi.")
+    project_url, anon_key = url_match.group(1).rstrip("/"), key_match.group(1).strip()
+    if not project_url.startswith("https://") or not anon_key or "PROJECT-ID" in project_url or "ISI_DENGAN" in anon_key:
+        raise RuntimeError("Konfigurasi Supabase belum lengkap atau masih berupa placeholder.")
+    return project_url, anon_key
+
+
+def fetch_published_cms_content():
+    """Ambil konten terbit yang dapat dibaca publik; tidak menggunakan kredensial admin."""
+    project_url, anon_key = read_supabase_public_config()
+    query = urllib.parse.urlencode({
+        "select": "content_type,title,public_url,updated_at,published_at,image_url,canonical_url,meta_robots,status,deleted_at",
+        "status": "eq.published",
+        "deleted_at": "is.null",
+        "order": "updated_at.desc",
+        "limit": "5000",
+    })
+    endpoint = project_url + "/rest/v1/cms_content?" + query
+    request = urllib.request.Request(endpoint, headers={
+        "apikey": anon_key,
+        "Authorization": "Bearer " + anon_key,
+        "Accept": "application/json",
+        "User-Agent": "RizchBali-Sitemap-Generator/2.2",
+    })
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except Exception as exc:
+        # Fail closed: jangan menulis sitemap parsial bila data CMS tidak berhasil dibaca.
+        raise RuntimeError("Gagal membaca konten publik Supabase; file sitemap tidak ditulis agar URL CMS tidak hilang. " + str(exc))
+    if not isinstance(payload, list):
+        raise RuntimeError("Respons Supabase tidak berbentuk daftar konten.")
+    return payload
+
+
+def cms_record_to_sitemap_item(record):
+    """Validasi satu konten CMS dan ubah menjadi item sitemap; None berarti dikecualikan."""
+    if record.get("status") != "published" or record.get("deleted_at"):
+        return None
+    robots = str(record.get("meta_robots") or "").lower()
+    if "noindex" in robots:
+        return None
+    content_type = record.get("content_type")
+    group = {"root": "sitemap-root", "article": "sitemap-edukasi", "service": "sitemap-layanan", "jual_beli": "sitemap-jual-beli"}.get(content_type)
+    if not group:
+        return None
+
+    public_url = str(record.get("public_url") or "").strip()
+    canonical = str(record.get("canonical_url") or "").strip()
+    candidate = canonical or (BASE_URL + "/" + public_url.lstrip("/"))
+    parsed = urllib.parse.urlparse(candidate)
+    base = urllib.parse.urlparse(BASE_URL)
+    # Sitemap hanya boleh mencantumkan URL absolut pada host RizchBali.
+    if parsed.scheme != "https" or parsed.netloc.lower() != base.netloc.lower() or not parsed.path.startswith("/"):
+        return None
+    if not public_url and not canonical:
+        return None
+
+    lastmod = record.get("updated_at") or record.get("published_at")
+    if lastmod:
+        lastmod = str(lastmod)
+        if not re.match(r"^\d{4}-\d{2}-\d{2}(?:T.*)?$", lastmod):
+            lastmod = get_file_lastmod(__file__)
+    else:
+        lastmod = get_file_lastmod(__file__)
+    image_url = str(record.get("image_url") or "").strip()
+    images = [image_url] if image_url.startswith("https://") else []
+    return group, {
+        "url": candidate,
+        "lastmod": lastmod,
+        "changefreq": "weekly",
+        "priority": "0.8" if content_type in ("article", "service") else "0.7",
+        "images": images,
+        "is_index": False,
+        "source": "cms",
+        "h1": record.get("title"),
+        "og_image": image_url or None,
+        "canonical": canonical or None,
+        "has_error": False,
+        "error_msg": None,
+    }
+
+
+def merge_cms_content(sitemap_data, cms_records):
+    """Tambahkan konten CMS terbit ke kelompok sitemap yang sesuai tanpa duplikasi URL."""
+    added = 0
+    skipped = 0
+    for record in cms_records:
+        item = cms_record_to_sitemap_item(record)
+        if not item:
+            skipped += 1
+            continue
+        sitemap_name, url_item = item
+        sitemap_data.setdefault(sitemap_name, [])
+        existing = {entry["url"] for entries in sitemap_data.values() for entry in entries}
+        if url_item["url"] in existing:
+            continue
+        sitemap_data[sitemap_name].append(url_item)
+        added += 1
+    print(f"       CMS published: {added} URLs ditambahkan, {skipped} dikecualikan (draft/sampah/noindex/URL tidak valid).")
+    return sitemap_data
+
 # ============================================================
 # MAIN
 # ============================================================
 
 def main():
     print("\n" + "="*60)
-    print("  RIZCH Sitemap Generator Pro v2.1")
+    print("  RIZCH Sitemap Generator Pro v2.3")
     print("  Auto Canonical | Auto OG Image | Auto H1 | Audit Mode")
     print("="*60 + "\n")
+
+    # Ambil CMS terlebih dahulu sebelum file apa pun ditulis. Default aman: gagal baca CMS = berhenti.
+    if "--static-only" in sys.argv:
+        cms_records = []
+        print("[CMS] Mode static-only diminta; konten CMS tidak diambil.\n")
+    else:
+        print("[CMS] Mengambil konten terbit dari Supabase menggunakan publishable/anon key...")
+        try:
+            cms_records = fetch_published_cms_content()
+        except RuntimeError as exc:
+            print("\nERROR: " + str(exc))
+            print("Tidak ada file sitemap yang ditulis. Periksa koneksi/config lalu coba lagi, atau gunakan --static-only untuk audit lokal saja.\n")
+            raise SystemExit(2)
+        print(f"       {len(cms_records)} baris CMS diterima.\n")
 
     # Step 1: Baca vercel.json
     print("[1/5] Reading vercel.json (URL lama)...")
@@ -644,6 +786,8 @@ def main():
     # Step 2: Scan folder
     print("[2/5] Scanning all folders...")
     sitemap_data = scan_folders()
+    if cms_records:
+        merge_cms_content(sitemap_data, cms_records)
 
     if not sitemap_data and not vercel_urls:
         print("WARNING: Tidak ada file HTML atau URL ditemukan!")
@@ -724,7 +868,7 @@ def main():
         print(f"  - {gf}")
     print()
     print("Next steps:")
-    print("  1. Upload SEMUA file .xml ke GitHub")
+    print("  1. Upload hanya file yang tercantum pada daftar Generated files (jangan unggah sitemap lama yang tidak terdaftar)")
     print("  2. Upload artikel-data.json (kalau ada artikel baru)")
     print("  3. Submit sitemap.xml ke Google Search Console")
     print("  4. URL: https://rizchbali.com/sitemap.xml\n")

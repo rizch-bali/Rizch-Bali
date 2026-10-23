@@ -1428,34 +1428,19 @@ content="Melayani pengurusan STNK, SIM, SKCK, paspor, KTP, KK, KITAS, KITAP, mut
     <nav class="navbar">
         <div class="nav-container">
             <!-- GANTI JADI INI -->
-<a href="#" class="logo" style="text-decoration: none;">
+<a href="/" class="logo" style="text-decoration: none;">
     <img src="/images/logo/logo-rizch.png" alt="Rizch Bali" style="height: 50px; width: auto; object-fit: contain; display: block;">
 </a>
             
             <ul class="nav-menu">
-    <li><a href="#beranda">Beranda</a></li>
-    <li><a href="#layanan">Layanan</a></li>
-    <li><a href="#wilayah">Wilayah</a></li>
-    <li><a href="/artikel">Artikel</a></li>
-    <li><a href="#testimoni">Testimoni</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    
-    <!-- TAMBAHKAN INI: Sosial Media di Navbar -->
-    <li class="nav-social">
-        <a href="https://www.instagram.com/rizchbali" target="_blank" class="nav-social-link" title="Instagram Rizch Bali">
-            <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://www.facebook.com/rizchpendampingandokumenpribadi" target="_blank" class="nav-social-link" title="Facebook Rizch Bali">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://www.tiktok.com/@rizchbali" target="_blank" class="nav-social-link" title="TikTok Rizch Bali">
-            <i class="fab fa-tiktok"></i>
-        </a>
-    </li>
-    
-    <li><a href="https://wa.me/62895429358977" class="btn btn-whatsapp">
-        <i class="fab fa-whatsapp"></i> Hubungi Kami
-    </a></li>
+<li><a href="/#beranda">Beranda</a></li>
+<li><a href="/#layanan">Layanan</a></li>
+<li><a href="/jual-beli/">Jual Beli</a></li>
+<li><a href="/artikel/">Artikel</a></li>
+<li><a href="/#testimoni">Testimoni</a></li>
+<li><a href="/#faq">FAQ</a></li>
+<li><a href="/admin/" title="Masuk ke dashboard admin CMS">Admin</a></li>
+<li><a href="https://wa.me/62895429358977" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Hubungi Kami</a></li>
 </ul>
 
             <div class="hamburger">
@@ -2083,18 +2068,18 @@ content="Melayani pengurusan STNK, SIM, SKCK, paspor, KTP, KK, KITAS, KITAP, mut
     <h4>Tautan Cepat</h4>
     <ul>
         <li>
-            <a href="https://rizchbali.com/#beranda">
+            <a href="/#beranda">
                 <i class="fas fa-chevron-right"></i> Beranda
             </a>
         </li>
         <li>
-            <a href="https://rizchbali.com/#layanan">
+            <a href="/#layanan">
                 <i class="fas fa-chevron-right"></i> Layanan
             </a>
         </li>
         <li>
-            <a href="https://rizchbali.com/#wilayah">
-                <i class="fas fa-chevron-right"></i> Wilayah Bali
+            <a href="/jual-beli/">
+                <i class="fas fa-chevron-right"></i> Jual Beli
             </a>
         </li>
         <li>
@@ -2103,7 +2088,7 @@ content="Melayani pengurusan STNK, SIM, SKCK, paspor, KTP, KK, KITAS, KITAP, mut
             </a>
         </li>
         <li>
-            <a href="https://rizchbali.com/#faq">
+            <a href="/#faq">
                 <i class="fas fa-chevron-right"></i> FAQ
             </a>
         </li>
@@ -2171,6 +2156,14 @@ content="Melayani pengurusan STNK, SIM, SKCK, paspor, KTP, KK, KITAS, KITAP, mut
     });
   </script>
 
+
+
+  <!-- CMS RizchBali: daftar layanan tambahan dari dashboard, bila Supabase dikonfigurasi. Konten lama tetap dipertahankan. -->
+  <script src="/admin/supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/global-settings.js"></script>
+  <script>
+  (async function(){const cfg=window.RIZCH_SUPABASE_CONFIG||{};if(!window.supabase||!cfg.url||cfg.url.includes('PROJECT-ID')||!cfg.anonKey||cfg.anonKey.includes('ISI_DENGAN'))return;const client=window.supabase.createClient(cfg.url,cfg.anonKey);const {data,error}=await client.from('cms_content').select('title,category,region,excerpt,public_url').eq('content_type','service').eq('status','published').order('published_at',{ascending:false});if(error||!data||!data.length)return;const section=document.getElementById('layanan');if(!section)return;const wrap=document.createElement('div');wrap.className='cms-services';wrap.style.cssText='max-width:1100px;margin:28px auto;padding:0 20px';const h=document.createElement('h3');h.textContent='Layanan terbaru';h.style.cssText='color:#1e3c72;margin-bottom:15px';wrap.appendChild(h);const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px';data.forEach(item=>{const a=document.createElement('a');a.href=item.public_url;a.style.cssText='display:block;text-decoration:none;background:#fff;border:1px solid #e4e9f1;border-radius:12px;padding:18px;color:#253247';const title=document.createElement('strong');title.textContent=item.title;title.style.cssText='display:block;color:#1e3c72;margin-bottom:8px';const desc=document.createElement('p');desc.textContent=item.excerpt;desc.style.cssText='font-size:13px;line-height:1.6;color:#68778a;margin:0';a.append(title,desc);grid.appendChild(a)});wrap.appendChild(grid);section.appendChild(wrap)})();
+  </script>
 
 </body>
 </html>

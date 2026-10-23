@@ -2,6 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://rizchbali.com/sitemap.xml
-Sitemap: https://rizchbali.com/sitemap-edukasi.xml
-Sitemap: https://rizchbali.com/sitemap-tips.xml
-Sitemap: https://rizchbali.com/sitemap-layanan.xml

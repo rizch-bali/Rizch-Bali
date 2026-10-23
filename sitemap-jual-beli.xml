@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://rizchbali.com/jual-beli/</loc>
+    <lastmod>2026-10-19T21:50:06+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rizchbali.com/jual-beli/jual-mobil-listrik-terbaru-di-surabaya/</loc>
+    <lastmod>2026-10-19T06:16:57.751598+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://iqfpetbkpshntuffknza.supabase.co/storage/v1/object/public/rizch-content-images/1089870a-8ba2-4031-a539-f4c97139873a/9377f323-f0aa-4e3a-aeed-461324bca902.jpg</image:loc>
+    </image:image>
+  </url>
+</urlset>
