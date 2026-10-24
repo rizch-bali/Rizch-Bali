@@ -1,0 +1,114 @@
+{
+  "sitemap-tips": [],
+  "sitemap-layanan-sim": [
+    {
+      "url": "https://rizchbali.com/layanan-sim/denpasar/",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.8",
+      "images": [
+        "https://rizchbali.com/images/artikel/jasa-pengurusan-sim-denpasar.webp"
+      ],
+      "source": "static"
+    }
+  ],
+  "sitemap-layanan-kendaraan": [],
+  "sitemap-layanan-imigrasi": [],
+  "sitemap-edukasi": [
+    {
+      "url": "https://rizchbali.com/artikel/edukasi/sim/cara-perpanjang-sim-di-bali/",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.6",
+      "images": [
+        "https://rizchbali.com/images/artikel/cara-perpanjang-sim-bali.webp"
+      ],
+      "source": "static"
+    }
+  ],
+  "sitemap-layanan-dukcapil": [],
+  "sitemap-layanan-skck": [],
+  "sitemap-jual-beli": [
+    {
+      "url": "https://rizchbali.com/jual-beli/",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.9",
+      "images": [],
+      "source": "static"
+    }
+  ],
+  "sitemap-layanan-paspor": [],
+  "sitemap-root": [
+    {
+      "url": "https://rizchbali.com/",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "1.0",
+      "images": [
+        "https://rizchbali.com/rizch-service-bali.jpg"
+      ],
+      "source": "static"
+    },
+    {
+      "url": "https://rizchbali.com/cara-mengurus-stnk-hilang-bali",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.9",
+      "images": [
+        "https://rizchbali.com/cara-mengurus-stnk-hilang.webp"
+      ],
+      "source": "static"
+    },
+    {
+      "url": "https://rizchbali.com/jasa-pengurusan-sim-bali",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.9",
+      "images": [
+        "https://rizchbali.com/jasa-pengurusan-sim.webp"
+      ],
+      "source": "static"
+    },
+    {
+      "url": "https://rizchbali.com/mutasi-kendaraan-bali",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.9",
+      "images": [
+        "https://rizchbali.com/mutasi-kendaraan-keluar-masuk.webp"
+      ],
+      "source": "static"
+    },
+    {
+      "url": "https://rizchbali.com/prosedur-balik-nama-kendaraan-bali",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.9",
+      "images": [
+        "https://rizchbali.com/prosedur-balik-nama-kendaraan.webp"
+      ],
+      "source": "static"
+    },
+    {
+      "url": "https://rizchbali.com/syarat-mengurus-skck-bali",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.9",
+      "images": [
+        "https://rizchbali.com/syarat-mengurus-skck.webp"
+      ],
+      "source": "static"
+    },
+    {
+      "url": "https://rizchbali.com/syarat-perpanjang-stnk-bali",
+      "lastmod": "2026-10-19T21:50:06+00:00",
+      "changefreq": "daily",
+      "priority": "0.9",
+      "images": [
+        "https://rizchbali.com/syarat-perpanjang-stnk.webp"
+      ],
+      "source": "static"
+    }
+  ]
+}

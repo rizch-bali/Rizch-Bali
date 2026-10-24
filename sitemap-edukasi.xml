@@ -1,22 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url>
-    <loc>https://rizchbali.com/artikel/edukasi/sim/cara-perpanjang-sim-di-bali/</loc>
-    <lastmod>2026-10-19T21:50:06+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-    <image:image>
-      <image:loc>https://rizchbali.com/images/artikel/cara-perpanjang-sim-bali.webp</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://rizchbali.com/artikel/konten/syarat-membuat-kitas-atau-kitap-di-jawa-timur</loc>
-    <lastmod>2026-10-19T05:54:16.526501+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://iqfpetbkpshntuffknza.supabase.co/storage/v1/object/public/rizch-content-images/1089870a-8ba2-4031-a539-f4c97139873a/24867582-4ab7-472a-b938-843593ad28c2.jpg</image:loc>
-    </image:image>
-  </url>
-</urlset>
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:urlset xmlns:ns0="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:ns1="http://www.google.com/schemas/sitemap-image/1.1">
+  <ns0:url>
+    <ns0:loc>https://rizchbali.com/artikel/edukasi/sim/cara-perpanjang-sim-di-bali/</ns0:loc>
+    <ns0:lastmod>2026-10-19T21:50:06+00:00</ns0:lastmod>
+    <ns0:changefreq>daily</ns0:changefreq>
+    <ns0:priority>0.6</ns0:priority>
+    <ns1:image>
+      <ns1:loc>https://rizchbali.com/images/artikel/cara-perpanjang-sim-bali.webp</ns1:loc>
+    </ns1:image>
+  </ns0:url>
+  </ns0:urlset>

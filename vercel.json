@@ -1,6 +1,54 @@
 {
   "rewrites": [
     {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap?type=index"
+    },
+    {
+      "source": "/sitemap-root.xml",
+      "destination": "/api/sitemap?type=sitemap-root"
+    },
+    {
+      "source": "/sitemap-edukasi.xml",
+      "destination": "/api/sitemap?type=sitemap-edukasi"
+    },
+    {
+      "source": "/sitemap-jual-beli.xml",
+      "destination": "/api/sitemap?type=sitemap-jual-beli"
+    },
+    {
+      "source": "/sitemap-layanan-sim.xml",
+      "destination": "/api/sitemap?type=sitemap-layanan-sim"
+    },
+    {
+      "source": "/sitemap-layanan-dukcapil.xml",
+      "destination": "/api/sitemap?type=sitemap-layanan-dukcapil"
+    },
+    {
+      "source": "/sitemap-layanan-imigrasi.xml",
+      "destination": "/api/sitemap?type=sitemap-layanan-imigrasi"
+    },
+    {
+      "source": "/sitemap-layanan-kendaraan.xml",
+      "destination": "/api/sitemap?type=sitemap-layanan-kendaraan"
+    },
+    {
+      "source": "/sitemap-layanan-paspor.xml",
+      "destination": "/api/sitemap?type=sitemap-layanan-paspor"
+    },
+    {
+      "source": "/sitemap-layanan-skck.xml",
+      "destination": "/api/sitemap?type=sitemap-layanan-skck"
+    },
+    {
+      "source": "/sitemap-tips.xml",
+      "destination": "/api/sitemap?type=sitemap-tips"
+    },
+    {
+      "source": "/sitemap-layanan.xml",
+      "destination": "/api/sitemap?type=sitemap-layanan"
+    },
+    {
       "source": "/cara-mengurus-stnk-hilang-bali",
       "destination": "/cara-mengurus-stnk-hilang-di-bali.html"
     },

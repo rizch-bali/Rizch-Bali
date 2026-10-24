@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-RIZCH Sitemap Generator Pro v2.3
+RIZCH Sitemap Generator Pro v2.4
 ================================
 Fitur:
 - Auto-detect SEMUA folder + vercel.json
@@ -28,8 +28,9 @@ Changelog v2.1:
 Cara penggunaan:
 1. Simpan di root project (sejajar index.html & vercel.json)
 2. Jalankan: python generate-sitemap-pro-v2.py
-3. Upload hanya file sitemap yang dilaporkan sebagai generated (jangan upload sitemap lama/kosong yang tidak terdaftar)
-4. Submit https://rizchbali.com/sitemap.xml ke GSC
+3. Generator memperbarui api/sitemap-static-data.json; jangan membuat/mengunggah XML sitemap statis.
+4. Deploy api/sitemap.js + vercel.json agar URL sitemap publik dilayani secara dinamis.
+5. Submit https://rizchbali.com/sitemap.xml ke GSC
 """
 
 import os
@@ -336,9 +337,12 @@ def get_vercel_urls():
                     continue
 
                 dest_file = dest.lstrip("/")
-                html_data = parse_html_file(dest_file) if os.path.exists(dest_file) else {
-                    'canonical': None, 'og_image': None, 'first_image': None, 'h1': None, 'error': None
-                }
+                # Jangan masukkan URL rewrite jika file tujuan sudah tidak ada.
+                # Ini mencegah URL lama/halaman yang dihapus tertinggal di sitemap.
+                if not os.path.isfile(dest_file):
+                    print(f"       - Skip rewrite {source}: file tujuan {dest_file} tidak ditemukan")
+                    continue
+                html_data = parse_html_file(dest_file)
 
                 # Gunakan canonical kalau ada, kalau tidak pakai source
                 final_url = html_data['canonical'] or (BASE_URL + source)
@@ -681,7 +685,7 @@ def fetch_published_cms_content():
             payload = json.loads(response.read().decode("utf-8"))
     except Exception as exc:
         # Fail closed: jangan menulis sitemap parsial bila data CMS tidak berhasil dibaca.
-        raise RuntimeError("Gagal membaca konten publik Supabase; file sitemap tidak ditulis agar URL CMS tidak hilang. " + str(exc))
+        raise RuntimeError("Gagal membaca konten publik Supabase; generator tidak dapat mengaudit data CMS. " + str(exc))
     if not isinstance(payload, list):
         raise RuntimeError("Respons Supabase tidak berbentuk daftar konten.")
     return payload
@@ -695,7 +699,22 @@ def cms_record_to_sitemap_item(record):
     if "noindex" in robots:
         return None
     content_type = record.get("content_type")
-    group = {"root": "sitemap-root", "article": "sitemap-edukasi", "service": "sitemap-layanan", "jual_beli": "sitemap-jual-beli"}.get(content_type)
+    if content_type == "service":
+        category_text = " ".join(str(record.get(k) or "") for k in ("category", "title", "public_url")).lower()
+        if re.search(r"\bsim\b|surat izin mengemudi", category_text):
+            group = "sitemap-layanan-sim"
+        elif re.search(r"dukcapil|kependudukan|akta kelahiran|kartu keluarga|\bktp\b", category_text):
+            group = "sitemap-layanan-dukcapil"
+        elif re.search(r"imigrasi|\bkitas\b|\bkitap\b|izin tinggal", category_text):
+            group = "sitemap-layanan-imigrasi"
+        elif re.search(r"paspor|passport", category_text):
+            group = "sitemap-layanan-paspor"
+        elif re.search(r"kendaraan|\bstnk\b|\bbpkb\b|mutasi|balik nama", category_text):
+            group = "sitemap-layanan-kendaraan"
+        else:
+            group = "sitemap-layanan"
+    else:
+        group = {"root": "sitemap-root", "article": "sitemap-edukasi", "jual_beli": "sitemap-jual-beli"}.get(content_type)
     if not group:
         return None
 
@@ -760,118 +779,72 @@ def merge_cms_content(sitemap_data, cms_records):
 
 def main():
     print("\n" + "="*60)
-    print("  RIZCH Sitemap Generator Pro v2.3")
-    print("  Auto Canonical | Auto OG Image | Auto H1 | Audit Mode")
+    print("  RIZCH Sitemap Generator Pro v2.4")
+    print("  Dynamic CMS sitemap data | Static page scan | SEO Audit")
     print("="*60 + "\n")
 
-    # Ambil CMS terlebih dahulu sebelum file apa pun ditulis. Default aman: gagal baca CMS = berhenti.
-    if "--static-only" in sys.argv:
-        cms_records = []
-        print("[CMS] Mode static-only diminta; konten CMS tidak diambil.\n")
-    else:
-        print("[CMS] Mengambil konten terbit dari Supabase menggunakan publishable/anon key...")
-        try:
-            cms_records = fetch_published_cms_content()
-        except RuntimeError as exc:
-            print("\nERROR: " + str(exc))
-            print("Tidak ada file sitemap yang ditulis. Periksa koneksi/config lalu coba lagi, atau gunakan --static-only untuk audit lokal saja.\n")
-            raise SystemExit(2)
-        print(f"       {len(cms_records)} baris CMS diterima.\n")
-
-    # Step 1: Baca vercel.json
-    print("[1/5] Reading vercel.json (URL lama)...")
+    # Scan physical HTML and valid legacy rewrites only. CMS records are served
+    # dynamically by api/sitemap.js, so this script must not recreate static XMLs.
+    print("[1/4] Reading vercel.json and scanning static pages...")
     vercel_urls = get_vercel_urls()
-    print(f"       Found {len(vercel_urls)} URLs from vercel.json\n")
-
-    # Step 2: Scan folder
-    print("[2/5] Scanning all folders...")
     sitemap_data = scan_folders()
-    if cms_records:
-        merge_cms_content(sitemap_data, cms_records)
-
-    if not sitemap_data and not vercel_urls:
-        print("WARNING: Tidak ada file HTML atau URL ditemukan!")
-        return
-
-    total_folder_urls = sum(len(urls) for urls in sitemap_data.values())
-    print(f"       Found {len(sitemap_data)} sitemap categories, {total_folder_urls} URLs\n")
-
-    # Step 3: Masukkan URL vercel ke sitemap-root
     if vercel_urls:
-        if 'sitemap-root' not in sitemap_data:
-            sitemap_data['sitemap-root'] = []
+        sitemap_data.setdefault('sitemap-root', [])
+        existing = {u['url'] for u in sitemap_data['sitemap-root']}
+        for item in vercel_urls:
+            if item['url'] not in existing:
+                sitemap_data['sitemap-root'].append(item)
+                existing.add(item['url'])
 
-        # Filter duplikat
-        existing_urls = {u['url'] for u in sitemap_data.get('sitemap-root', [])}
-        for vu in vercel_urls:
-            if vu['url'] not in existing_urls:
-                sitemap_data['sitemap-root'].append(vu)
-                existing_urls.add(vu['url'])
-
-    # Step 4: Generate sitemap per kategori
-    print("[3/5] Generating sitemap files...")
-    generated_files = []
-    total_urls = 0
-    all_urls = []
-
+    # Serialize only static pages. CMS data is queried live by api/sitemap.js.
+    static_payload = {}
     for name, urls in sitemap_data.items():
-        if not urls:
-            continue
+        valid = []
+        for item in urls:
+            url = str(item.get('url') or '')
+            parsed = urllib.parse.urlparse(url)
+            if parsed.scheme != 'https' or parsed.netloc.lower() != urllib.parse.urlparse(BASE_URL).netloc.lower():
+                continue
+            valid.append({
+                'url': url,
+                'lastmod': item.get('lastmod') or get_file_lastmod(__file__),
+                'changefreq': item.get('changefreq') or 'weekly',
+                'priority': item.get('priority') or '0.7',
+                'images': [x for x in item.get('images', []) if isinstance(x, str) and x.startswith('https://')],
+                'is_index': bool(item.get('is_index')),
+                'source': 'static'
+            })
+        if valid:
+            static_payload[name] = valid
 
-        xml_content = generate_sitemap_xml(name, urls)
-        filename = f"{name}.xml"
-        filepath = os.path.join(OUTPUT_DIR, filename)
+    api_dir = Path('api')
+    api_dir.mkdir(exist_ok=True)
+    output = api_dir / 'sitemap-static-data.json'
+    output.write_text(json.dumps(static_payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    total = sum(len(v) for v in static_payload.values())
+    print(f"       {total} URL halaman statis ditulis ke {output.as_posix()}")
 
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(xml_content)
+    print("[2/4] Memeriksa data CMS untuk audit (tidak menulis XML statis)...")
+    all_urls = [item for urls in sitemap_data.values() for item in urls]
+    try:
+        cms_records = fetch_published_cms_content()
+        cms_count = 0
+        for record in cms_records:
+            item = cms_record_to_sitemap_item(record)
+            if item:
+                _, url_item = item
+                all_urls.append(url_item)
+                cms_count += 1
+        print(f"       {cms_count} URL CMS terbit valid; URL CMS tetap disajikan dinamis saat request sitemap.")
+    except RuntimeError as exc:
+        print("       Peringatan: audit CMS tidak tersedia: " + str(exc))
+        print("       Data statis tetap dibuat; API akan mencoba membaca CMS saat Google meminta sitemap.")
 
-        generated_files.append(filename)
-        total_urls += len(urls)
-        all_urls.extend(urls)
-
-        image_count = sum(len(u['images']) for u in urls)
-        vercel_count = sum(1 for u in urls if u.get('source') == 'vercel')
-        folder_count = len(urls) - vercel_count
-
-        source_info = ""
-        if vercel_count > 0:
-            source_info = f" (vercel:{vercel_count}, folder:{folder_count})"
-
-        print(f"       {filename:35} | {len(urls):3} URLs | {image_count:3} images{source_info}")
-
-    print()
-
-    # Step 5: Generate master sitemap
-    print("[4/5] Generating master sitemap.xml...")
-    master_files = [f for f in generated_files if f != "sitemap.xml"]
-    master_xml = generate_master_sitemap(master_files)
-    master_path = os.path.join(OUTPUT_DIR, "sitemap.xml")
-
-    with open(master_path, 'w', encoding='utf-8') as f:
-        f.write(master_xml)
-
-    print(f"       sitemap.xml (master index) with {len(master_files)} sub-sitemaps\n")
-
-    # Step 6: Audit Mode
-    print("[5/5] Running SEO Audit...")
+    print("[3/4] Menjalankan audit URL...")
     run_audit(all_urls)
-
-    # Step 7: Summary
-    print("\n" + "="*60)
-    print(f"  Total sitemaps : {len(master_files) + 1}")
-    print(f"  Total URLs     : {total_urls}")
-    print(f"  Output folder  : {os.path.abspath(OUTPUT_DIR)}")
-    print("="*60)
-    print()
-    print("Generated files:")
-    for gf in sorted(generated_files + ["sitemap.xml"]):
-        print(f"  - {gf}")
-    print()
-    print("Next steps:")
-    print("  1. Upload hanya file yang tercantum pada daftar Generated files (jangan unggah sitemap lama yang tidak terdaftar)")
-    print("  2. Upload artikel-data.json (kalau ada artikel baru)")
-    print("  3. Submit sitemap.xml ke Google Search Console")
-    print("  4. URL: https://rizchbali.com/sitemap.xml\n")
+    print("[4/4] Selesai.")
+    print("       Jangan unggah XML sitemap statis. URL sitemap dipetakan melalui api/sitemap.js dan vercel.json.")
+    print("       File yang diperbarui oleh generator: api/sitemap-static-data.json\n")
 
 if __name__ == "__main__":
     main()
