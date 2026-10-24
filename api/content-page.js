@@ -95,7 +95,9 @@ function setInitialMetadata(template, content, global, slug, type) {
     || global.seoTitle || 'Rizch Bali').trim();
   const description = String(content && (content.og_description || content.seo_description || content.excerpt)
     || global.seoDescription || '').trim();
-  const image = absoluteUrl(content && (content.og_image || content.image_url)
+  // For content pages, use the primary CMS image as the social preview image.
+  // This prevents a stale og_image value from overriding the current image_url.
+  const image = absoluteUrl(content && (content.image_url || content.og_image)
     || global.ogImage || global.logoUrl || `${SITE_URL}/rizch-service-bali.jpg`);
   const canonical = absoluteUrl(content && content.canonical_url)
     || absoluteUrl(content && content.public_url)

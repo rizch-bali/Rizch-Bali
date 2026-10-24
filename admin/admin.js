@@ -309,8 +309,13 @@
       $('imageFile').value='';
     }
     $('imageUrl').value=imageUrl; refreshSeoAutofill();
+    // Project rule: OG Image must follow the primary CMS image URL.
+    // If there is no primary image, retain the manually entered OG image.
+    const enteredOgImage=$('ogImage').value.trim();
+    const ogImageUrl=imageUrl || enteredOgImage;
+    $('ogImage').value=ogImageUrl;
     const payload={content_type:type,title,slug,category:$('category').value.trim(),region:$('region').value.trim(),excerpt:$('excerpt').value.trim(),body_html:addAutomaticImageAlt($('bodyHtml').value.trim(),title,$('excerpt').value.trim()),image_url:imageUrl,deleted_at:null,status_before_trash:null,price:$('jbPrice')?normalizePriceForSave($('jbPrice').value):'',listing_status:type==='jual_beli'&&$('listingStatus')?$('listingStatus').value:'tersedia',
-    jb_info_html:type==='jual_beli'&&$('jbInfoHtml')?$('jbInfoHtml').value.trim():'',faq_json:collectContentFaqFields().filter(f=>f.question||f.answer),cta_json:ctaDraft,status,public_url:plannedUrl(type,slug),seo_title:$('seoTitle').value.trim(),seo_description:$('seoDescription').value.trim(),seo_keywords:$('seoKeywords').value.trim(),canonical_url:$('canonicalUrl').value.trim(),meta_robots:$('seoRobots').value,og_title:$('ogTitle').value.trim(),og_description:$('ogDescription').value.trim(),og_image:$('ogImage').value.trim(),og_type:$('ogType').value,twitter_card:$('twitterCard').value,twitter_title:$('twitterTitle').value.trim(),twitter_description:$('twitterDescription').value.trim(),twitter_image:$('twitterImage').value.trim(),created_by:session.user.id};
+    jb_info_html:type==='jual_beli'&&$('jbInfoHtml')?$('jbInfoHtml').value.trim():'',faq_json:collectContentFaqFields().filter(f=>f.question||f.answer),cta_json:ctaDraft,status,public_url:plannedUrl(type,slug),seo_title:$('seoTitle').value.trim(),seo_description:$('seoDescription').value.trim(),seo_keywords:$('seoKeywords').value.trim(),canonical_url:$('canonicalUrl').value.trim(),meta_robots:$('seoRobots').value,og_title:$('ogTitle').value.trim(),og_description:$('ogDescription').value.trim(),og_image:ogImageUrl,og_type:$('ogType').value,twitter_card:$('twitterCard').value,twitter_title:$('twitterTitle').value.trim(),twitter_description:$('twitterDescription').value.trim(),twitter_image:$('twitterImage').value.trim(),created_by:session.user.id};
     $('saveDraftBtn').disabled=true;$('publishBtn').disabled=true;setMsg('editorMessage','Menyimpan…',true);
     let result;
     if($('contentId').value) result=await supabase.from('cms_content').update(payload).eq('id',$('contentId').value).select().single();
