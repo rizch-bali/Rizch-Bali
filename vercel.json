@@ -150,23 +150,28 @@
     },
     {
       "source": "/jual-beli/:slug/",
-      "destination": "/konten/detail.html?slug=:slug&type=jual_beli"
+      "destination": "/api/content-page?slug=:slug&type=jual_beli"
     },
     {
       "source": "/jual-beli/:slug",
-      "destination": "/konten/detail.html?slug=:slug&type=jual_beli"
+      "destination": "/api/content-page?slug=:slug&type=jual_beli"
     },
     {
       "source": "/halaman/:slug",
-      "destination": "/konten/detail.html?slug=:slug&type=root"
+      "destination": "/api/content-page?slug=:slug&type=root"
     },
     {
       "source": "/layanan-konten/:slug",
-      "destination": "/konten/detail.html?slug=:slug&type=service"
+      "destination": "/api/content-page?slug=:slug&type=service"
     },
     {
       "source": "/artikel/konten/:slug",
-      "destination": "/konten/detail.html?slug=:slug&type=article"
+      "destination": "/api/content-page?slug=:slug&type=article"
     }
-  ]
+  ],
+  "functions": {
+    "api/content-page.js": {
+      "includeFiles": "konten/detail.html"
+    }
+  }
 }
