@@ -442,9 +442,29 @@
     <script src="/admin/supabase-config.js"></script>
     <script src="/jual-beli/jual-beli.js" defer></script>
     <script>
-        function toggleMenu() {
-            document.getElementById('navMenu').classList.toggle('active');
-        }
+        // Mobile navigation: aktifkan hamburger pada halaman Jual Beli.
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            if (!hamburger || !navMenu) return;
+
+            hamburger.addEventListener('click', function (event) {
+                event.stopPropagation();
+                navMenu.classList.toggle('active');
+            });
+
+            navMenu.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
