@@ -74,11 +74,11 @@
     },
     {
       "source": "/artikel",
-      "destination": "/artikel/blog-index.html"
+      "destination": "/artikel/index.html"
     },
     {
       "source": "/artikel/",
-      "destination": "/artikel/blog-index.html"
+      "destination": "/artikel/index.html"
     },
     {
       "source": "/artikel/edukasi/kendaraan/:judul",
@@ -175,3 +175,4 @@
     }
   }
 }
+
