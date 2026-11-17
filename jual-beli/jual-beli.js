@@ -31,6 +31,7 @@
     const q=normalize(searchInput.value);
     const terms=q.split(/\s+/).filter(Boolean);
     const status=statusFilter?.value||'all';
+    if(clearButton) clearButton.classList.toggle('is-visible', Boolean(q) || status!=='all');
     const rows=items.filter(item=>{
       const searchable=normalize([item.title,item.excerpt,item.category,item.region,item.price,item.jb_info_html,item.slug].join(' '));
       const keywordMatch=terms.every(term=>searchable.includes(term));
@@ -81,3 +82,4 @@
     render();
   }catch(error){console.error('Gagal memuat Jual Beli:',error);setMessage('Terjadi kendala saat memuat daftar Jual Beli. Periksa koneksi dan konfigurasi Supabase.');}
 })();
+
