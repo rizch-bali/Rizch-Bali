@@ -173,6 +173,9 @@ module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
   res.setHeader('X-Content-Type-Options', 'nosniff');
+  // Diagnostic headers allow Preview checks to prove that Vercel routed the
+  // public sitemap URL to this API instead of serving a stale static XML file.
+  res.setHeader('X-Rizch-Sitemap-Source', 'api');
   const type = String((req.query && req.query.type) || 'index').replace(/\.xml$/i, '');
   const staticData = sanitizeStaticData(readStaticData());
   if (type === 'index' || type === 'sitemap') {
@@ -181,7 +184,15 @@ module.exports = async function handler(req, res) {
       const records = await fetchCms();
       activeTypes = records.filter(record => record.status === 'published' && !record.deleted_at && !/noindex/i.test(String(record.meta_robots || '')))
         .map(cmsGroup).filter(Boolean);
-    } catch (_) { /* Existing static sitemap categories remain available during a CMS outage. */ }
+      res.setHeader('X-Rizch-Sitemap-Status', 'dynamic');
+      res.setHeader('X-Rizch-Sitemap-CMS-Records', String(records.length));
+    } catch (error) {
+      // Keep a readable sitemap if Supabase is temporarily unavailable.
+      // The diagnostic headers make fallback mode visible during Preview checks.
+      res.setHeader('X-Rizch-Sitemap-Status', 'static-fallback');
+      res.setHeader('X-Rizch-Sitemap-CMS-Records', 'unavailable');
+      console.error('RizchBali sitemap index CMS fetch failed:', error);
+    }
     res.status(200).send(renderIndex(staticData, activeTypes));
     return;
   }
@@ -196,8 +207,12 @@ module.exports = async function handler(req, res) {
       const item = toUrlItem(record);
       if (item && cmsGroup(record) === type) items.push(item);
     }
-  } catch (_) {
+    res.setHeader('X-Rizch-Sitemap-Status', 'dynamic');
+    res.setHeader('X-Rizch-Sitemap-CMS-Records', String(records.length));
+  } catch (error) {
     res.setHeader('X-Rizch-Sitemap-Status', 'static-fallback');
+    res.setHeader('X-Rizch-Sitemap-CMS-Records', 'unavailable');
+    console.error(`RizchBali sitemap ${type} CMS fetch failed:`, error);
   }
   res.status(200).send(renderUrlset(items));
 };
